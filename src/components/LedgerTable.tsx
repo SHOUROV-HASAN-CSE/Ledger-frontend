@@ -48,7 +48,11 @@ export default function LedgerTable({
   };
 
   const handleDownload = () => {
-    const formattedData = data.map((item) => ({
+    // Sort data by user_id ascending (oldest first) for Excel export
+    const sortedData = [...data].sort(
+      (a: LedgerUser, b: LedgerUser) => a.user_id - b.user_id
+    );
+    const formattedData = sortedData.map((item) => ({
       ...item,
       user_amount: formatBengaliCurrency(item.user_amount),
     }));
